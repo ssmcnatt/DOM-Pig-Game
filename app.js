@@ -26,9 +26,10 @@ function init() {
     roundScore = 0;
     activePlayer = 0;
     gamePlaying = true;
-    prevDice = 0;
+    // prevDice = 0;
 
-    document.querySelector(".dice").style.display = "none";
+    document.querySelector(".dice1").style.display = "none";
+    document.querySelector(".dice2").style.display = "none";
     document.getElementById("current-0").textContent = "0";
     document.getElementById("current-1").textContent = "0";
     document.getElementById("score-0").textContent = "0";
@@ -41,27 +42,33 @@ function init() {
 function btnRoll() {
     if (gamePlaying) {
         document.getElementById("message").textContent = "";
-        document.querySelector(".dice").style.display = "none";
+        document.querySelector(".dice1").style.display = "none";
+        document.querySelector(".dice2").style.display = "none";
 
-        var dice = Math.floor(Math.random() * 6) + 1;
-        var diceDOM = document.querySelector(".dice");
-        diceDOM.style.display = "block";
-        diceDOM.src = "dice-" + dice + ".png";
+        var dice1 = Math.floor(Math.random() * 6) + 1;
+        var dice1DOM = document.querySelector(".dice1");
+        dice1DOM.style.display = "block";
+        dice1DOM.src = "dice-" + dice1 + ".png";
 
-        // console.log(dice);
-        if (dice === 1) {
+        var dice2 = Math.floor(Math.random() * 6) + 1;
+        var dice2DOM = document.querySelector(".dice2");
+        dice2DOM.style.display = "block";
+        dice2DOM.src = "dice-" + dice2 + ".png";
+
+        console.log(dice1, dice2);
+        if (dice1 === 1 || dice2 === 1) {
             document.getElementById("message").textContent = "You rolled a 1, your turn is over!";
             switchPlayer();
         }
-        else if (dice === 6 && prevDice === 6) {
-            document.getElementById("message").textContent = "You rolled 2 sixes in a row, you lose all your points!";
+        else if (dice1 === 6 && dice2 === 6) {
+            document.getElementById("message").textContent = "You rolled 2 sixes, you lose all your points!";
             scores[activePlayer] = 0;
             document.getElementById("score-" + activePlayer).textContent = "0";
             switchPlayer();
         } else {
-            roundScore += dice;
+            roundScore += (dice1 + dice2);
             document.querySelector("#current-" + activePlayer).textContent = roundScore;
-            prevDice = dice;
+            // prevDice = dice1;
         }
     }
 }
@@ -92,7 +99,7 @@ function btnHold() {
 
 function switchPlayer() {
     roundScore = 0;
-    prevDice = 0;
+    // prevDice = 0;
     
     document.querySelector("#current-" + activePlayer).textContent = 0;
     
