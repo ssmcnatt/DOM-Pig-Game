@@ -26,7 +26,7 @@ function init() {
     roundScore = 0;
     activePlayer = 0;
     gamePlaying = true;
-    // prevDice = 0;
+    // prevDice = null;
 
     document.querySelector(".dice1").style.display = "none";
     document.querySelector(".dice2").style.display = "none";
@@ -99,7 +99,7 @@ function btnHold() {
 
 function switchPlayer() {
     roundScore = 0;
-    // prevDice = 0;
+    // prevDice = null;
     
     document.querySelector("#current-" + activePlayer).textContent = 0;
     
@@ -112,6 +112,4 @@ init();
 
 document.querySelector(".btn-roll").addEventListener("click", btnRoll);
 document.querySelector(".btn-hold").addEventListener("click", btnHold);
-document.querySelector(".btn-new").addEventListener("click", function () {
-    init();
-});
+document.querySelector(".btn-new").addEventListener("click", init);
