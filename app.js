@@ -20,14 +20,17 @@ Change the game to follow these rules:
 
 var scores, roundScore, activePlayer, gamePlaying;
 
+// Initialize the screen
 function init() {
     
+    // Clear all the scores and dice
     scores = [0, 0];
     roundScore = 0;
     activePlayer = 0;
     gamePlaying = true;
     // prevDice = null;
 
+    // Reset everything on the DOM
     document.querySelector(".dice1").style.display = "none";
     document.querySelector(".dice2").style.display = "none";
     document.getElementById("current-0").textContent = "0";
@@ -39,12 +42,15 @@ function init() {
     document.getElementById("message").textContent = "";
 }
 
+// Roll button function to roll the dice
 function btnRoll() {
     if (gamePlaying) {
+        // Clear the dice and message
         document.getElementById("message").textContent = "";
         document.querySelector(".dice1").style.display = "none";
         document.querySelector(".dice2").style.display = "none";
 
+        // Get random dice values
         var dice1 = Math.floor(Math.random() * 6) + 1;
         var dice1DOM = document.querySelector(".dice1");
         dice1DOM.style.display = "block";
@@ -55,6 +61,7 @@ function btnRoll() {
         dice2DOM.style.display = "block";
         dice2DOM.src = "dice-" + dice2 + ".png";
 
+        // Check the dice roll values
         console.log(dice1, dice2);
         if (dice1 === 1 || dice2 === 1) {
             document.getElementById("message").textContent = "You rolled a 1, your turn is over!";
@@ -73,11 +80,14 @@ function btnRoll() {
     }
 }
 
+// Hold button function
 function btnHold() {
     if (gamePlaying) {
+        // Add current score to the total score of the active player
         scores[activePlayer] += roundScore;
         document.getElementById("score-" + activePlayer).textContent = scores[activePlayer];
 
+        // Get the winning score entered, default to 100
         var input = document.getElementById("winScore").value;
         var winScore;
         
@@ -88,6 +98,7 @@ function btnHold() {
         }
         console.log("Win: " + winScore);
 
+        // If active player's score wins, end the game, otherwise switch players
         if (scores[activePlayer] >= winScore) {
             document.getElementById("name-" + activePlayer).textContent = "Winner!";
             gamePlaying = false;
@@ -97,6 +108,7 @@ function btnHold() {
     }
 }
 
+// Function to switch players
 function switchPlayer() {
     roundScore = 0;
     // prevDice = null;
@@ -108,8 +120,10 @@ function switchPlayer() {
     document.querySelector(".player-1-panel").classList.toggle("active");
 }
 
+// Initialize the DOM
 init();
 
+// Event listeners for the buttons
 document.querySelector(".btn-roll").addEventListener("click", btnRoll);
 document.querySelector(".btn-hold").addEventListener("click", btnHold);
 document.querySelector(".btn-new").addEventListener("click", init);
